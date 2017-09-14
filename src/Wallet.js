@@ -74,7 +74,10 @@ class Wallet extends Component {
     }
 
     BrownieCoinModel
-      .transfer(this.state.transferTo, 1, { from: "0x1a31786A953BD0663aABF41383D8270f2A7Ab587" })
+      .transfer(this.state.transferTo, this.state.transferAmount,
+        Buffer.from(this.state.privateKey.privateKey.data).toString("hex"),
+        this.state.publicKey,
+        { from: this.state.publicKey })
       .then(x => console.log(x));
     console.log(this.state);
   }
