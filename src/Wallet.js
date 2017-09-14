@@ -23,8 +23,9 @@ class Wallet extends Component {
       privateKey: prKey,
       balance: new BigNumber(0),
       symbol: "",
-      transferTo: "0xbf35c1709efa89c4c694139d6c6de912b0ca30c2",
-      transferAmount: 1,
+      isTransfering: false,
+      transferTo: "",
+      transferAmount: 0,
       transferError: "",
       showQRCode: false,
       showTransfer: false,
@@ -70,18 +71,27 @@ class Wallet extends Component {
       return;
     }
 
-    this.setState({ transferError: "" })
+    this.setState({
+      transferError: "",
+      isTransfering: true
+    })
 
     BrownieCoinModel
       .transfer(this.state.transferTo, this.state.transferAmount,
       Buffer.from(this.state.privateKey.privateKey.data).toString("hex"),
       {
         from: this.state.publicKey,
-        gas: 40000,
-        gasPrice: 40000000000
+        gas: 60000,
+        gasPrice: 50000000000
       })
-      .then(x => this.setState({ showTransfer: false }))
-      .catch(x => this.setState({ transferError: x.toString() }));
+      .then(x => this.setState({
+        showTransfer: false,
+        isTransfering: false
+      }))
+      .catch(x => this.setState({
+        transferError: x.toString(),
+        isTransfering: false
+      }));
   }
 
   handleScan(data) {
@@ -176,9 +186,9 @@ class Wallet extends Component {
                       onChange={(e) => this.setState({ transferAmount: e.target.value })} />
                   </FormGroup>
                   <FormGroup>
-                    <Button onClick={() => this.setState({ showScan: true })}>
-                      Scan
-                    </Button>
+                    <img src="./images/scan-qr.png"
+                      onClick={() => this.setState({ showScan: true })}
+                      style={{ width: 46, cursor: "pointer", display: "inline", marginRight: 20 }}></img>
                     <Modal
                       show={this.state.showScan}
                       onHide={closeScan}
@@ -198,7 +208,11 @@ class Wallet extends Component {
                         <p>{this.state.result}</p>
                       </Modal.Body>
                     </Modal>
-                    <Button onClick={this.transfer}>Transfer</Button>
+                    <Button
+                      disabled={this.state.isTransfering}
+                      onClick={!this.state.isTransfering ? this.transfer : null}>
+                      {this.state.isTransfering ? 'Transfering...' : 'Transfer'}
+                    </Button>
                   </FormGroup>
                 </Form>
               </Modal.Body>

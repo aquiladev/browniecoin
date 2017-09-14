@@ -26,12 +26,6 @@ class BrownieCoinModel {
     let web3 = new Web3(provider);
     BrownieCoin.setProvider(web3.currentProvider);
 
-    // var web3q = new Web3(new Web3.providers.HttpProvider(web3Location))
-    // // var block = web3q.eth.getBlock("latest");
-    // // console.log("gasLimit: " + block.gasLimit);
-    // var gasPrice = web3q.eth.gasPrice;
-    // console.log(gasPrice.toString(10));
-
     let coin = BrownieCoin.at(this.contractAddress);
     return await coin.transfer(address, amount, options);
   }
