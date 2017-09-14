@@ -265,3 +265,44 @@
 
 
 }());
+
+function scrollNav() {
+	$('.fh5co-nav a').click(function(){  
+		//Toggle Class
+		$(".active").removeClass("active");      
+		$(this).closest('li').addClass("active");
+		var theClass = $(this).attr("class");
+		$('.'+theClass).parent('li').addClass('active');
+		//Animate
+		$('html, body').stop().animate({
+			scrollTop: $( $(this).attr('href') ).offset().top - 100
+		}, 400);
+		return false;
+	});
+	$('#fh5co-header a.btn-demo').click(function(){  
+		//Toggle Class
+		$(".active").removeClass("active");      
+		$(this).closest('li').addClass("active");
+		var theClass = $(this).attr("class");
+		$('.'+theClass).parent('li').addClass('active');
+		//Animate
+		$('html, body').stop().animate({
+			scrollTop: $( $(this).attr('href') ).offset().top - 100
+		}, 400);
+		return false;
+	});
+	$('.scrollTop a').scrollTop();
+  }
+  scrollNav();
+
+  $(document).ready(function(){
+    var url = $("#cartoonVideo").attr('src');
+    
+    $("#myModal").on('hide.bs.modal', function(){
+        $("#cartoonVideo").attr('src', '');
+    });
+    
+    $("#myModal").on('show.bs.modal', function(){
+        $("#cartoonVideo").attr('src', url);
+    });
+});

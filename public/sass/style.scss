@@ -459,7 +459,11 @@ h1, h2, h3, h4, h5, h6, figure {
 				}
 			}
 		}
+		img {
+			margin-bottom: 90px;
+		}
 	}
+	margin-top: 110px;
 }
 
 
@@ -468,6 +472,12 @@ h1, h2, h3, h4, h5, h6, figure {
 	background: $brand-secondary;
 	.services-padding{
 		padding: 7em 0;
+
+		.fh5co-heading {
+			p {
+				color: rgba(0, 0, 0, 0.8);
+			}
+		}
 	}
 	.feature-left {
 		margin-bottom: 40px;
@@ -545,7 +555,6 @@ h1, h2, h3, h4, h5, h6, figure {
 	}
 }
 .user-frame{
-	width: 90%;
 	padding: 3em;
 	-webkit-box-shadow: 0px 0px 24px 0px rgba(0,0,0,0.13);
 	-moz-box-shadow: 0px 0px 24px 0px rgba(0,0,0,0.13);
@@ -880,11 +889,15 @@ h1, h2, h3, h4, h5, h6, figure {
 
 		h3{
 			font-size: 24px;
-			margin-bottom: 20px;
+			margin-bottom: 0;
 			line-height: 1.5;
 			a{
 				color: rgba($brand-black,1);
 			}
+		}
+
+		p{
+			font-size: 14px;
 		}
 	}
 }
@@ -1310,7 +1323,7 @@ input[type="text"] {
   z-index: 2001;
   border-bottom: none!important;
   @media screen and (max-width: $screen-sm) {
-  	display: block;
+  	display: none;
   }
 }
 
@@ -1498,5 +1511,19 @@ input[type="text"] {
 .animate-box {
 	.js & {
 		opacity: 0;
+	}
+}
+
+.modal-dialog {
+	top: 20%;
+
+	.modal-content {
+		.modal-body {
+			padding: 0;
+			iframe {
+				margin: 0 auto;
+				display: block;
+			}
+		}
 	}
 }
