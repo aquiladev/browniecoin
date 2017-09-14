@@ -17,9 +17,6 @@ class Wallet extends Component {
     var value = window.localStorage.getItem('erc20set2w_keyvault');
     var prKey = value ? JSON.parse(value) : undefined;
 
-    // var key = Buffer.from(prKey.privateKey.data).toString("hex");
-    // BrownieCoinModel.addAccount(key);
-
     this.state = {
       loading: false,
       publicKey: prKey ? keythereum.privateKeyToAddress(Buffer.from(prKey.privateKey.data)) : "",
@@ -73,13 +70,18 @@ class Wallet extends Component {
       return;
     }
 
+    this.setState({ transferError: "" })
+
     BrownieCoinModel
       .transfer(this.state.transferTo, this.state.transferAmount,
-        Buffer.from(this.state.privateKey.privateKey.data).toString("hex"),
-        this.state.publicKey,
-        { from: this.state.publicKey })
-      .then(x => console.log(x));
-    console.log(this.state);
+      Buffer.from(this.state.privateKey.privateKey.data).toString("hex"),
+      {
+        from: this.state.publicKey,
+        gas: 40000,
+        gasPrice: 40000000000
+      })
+      .then(x => this.setState({ showTransfer: false }))
+      .catch(x => this.setState({ transferError: x.toString() }));
   }
 
   handleScan(data) {
