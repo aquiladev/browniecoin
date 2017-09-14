@@ -7,11 +7,11 @@
     "cpx": "1.5.0",
     "keythereum": "1.0.2",
     "react": "15.6.1",
+    "react-bootstrap": "0.31.3",
     "react-dom": "15.6.1",
     "react-qr": "0.0.2",
     "react-qr-reader": "1.2.1",
     "react-scripts": "1.0.13",
-    "semantic-ui-react": "0.73.0",
     "truffle-contract": "3.0.0",
     "web3": "0.20.0"
   },
