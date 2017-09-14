@@ -597,6 +597,11 @@ h1, h2, h3, h4, h5, h6, figure {
       margin-bottom: 20px !important; }
     #fh5co-started .fh5co-heading p {
       color: rgba(255, 255, 255, 0.8); }
+      #fh5co-started .fh5co-heading p b {
+        padding: 4px 8px;
+        background: #FEE856;
+        color: #000;
+        border-radius: 4px; }
 
 .member {
   width: 100%;

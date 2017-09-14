@@ -777,8 +777,14 @@ h1, h2, h3, h4, h5, h6, figure {
 			color: $brand-white;
 			margin-bottom: 20px !important;
 		}
-		p{
+		p {
 			color: rgba($brand-white,.8);
+			b {
+				padding: 4px 8px;
+				background: $brand-secondary;
+				color: $brand-black;
+				border-radius: $border-radius-base;
+			}
 		}
 	}
 }
