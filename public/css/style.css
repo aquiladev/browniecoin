@@ -597,16 +597,6 @@ h1, h2, h3, h4, h5, h6, figure {
       margin-bottom: 20px !important; }
     #fh5co-started .fh5co-heading p {
       color: rgba(255, 255, 255, 0.8); }
-  #fh5co-started .btn {
-    height: 54px;
-    border: none !important;
-    background: #fff;
-    color: #DD356E;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: 400;
-    padding-left: 50px;
-    padding-right: 50px; }
 
 .member {
   width: 100%;
