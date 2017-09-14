@@ -1226,8 +1226,6 @@ input[type="text"] {
 
 .modal-dialog {
   top: 20%; }
-  .modal-dialog .modal-content .modal-body {
-    padding: 0; }
-    .modal-dialog .modal-content .modal-body iframe {
-      margin: 0 auto;
-      display: block; }
+  .modal-dialog .modal-content .modal-body iframe {
+    margin: 0 auto;
+    display: block; }
