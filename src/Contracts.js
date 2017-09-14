@@ -20,4 +20,4 @@ if (typeof web3 !== 'undefined') {
 BrownieCoin.setProvider(web3Provided.currentProvider)
 
 const accounts = web3Provided.eth.accounts;
-export { BrownieCoin, accounts }
+export { BrownieCoin, web3Provided, accounts }
