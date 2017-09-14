@@ -672,6 +672,9 @@ h1, h2, h3, h4, h5, h6, figure {
 				display: table-cell;
 				vertical-align: middle;
 				min-height: 500px;
+				h3 {
+					word-break: break-word;
+				}
 			}
 		}
 	}

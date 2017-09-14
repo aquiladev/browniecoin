@@ -499,6 +499,9 @@ h1, h2, h3, h4, h5, h6, figure {
         display: table-cell;
         vertical-align: middle;
         min-height: 500px; }
+        #fh5co-hero .flexslider .slider-text > .slider-text-inner h3,
+        #fh5co-hero .flexslider .slider-text-bg > .slider-text-inner h3 {
+          word-break: break-word; }
 
 .fh5co-bg-section {
   background: rgba(221, 53, 110, 0.03); }
