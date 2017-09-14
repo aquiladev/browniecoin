@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import keythereum from 'keythereum';
 import QRCode from 'react-qr';
 import QrReader from 'react-qr-reader';
-import { Button, Modal, Form, Icon } from 'semantic-ui-react';
+import { Button, Modal, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import BigNumber from 'bignumber.js'
 
 import BrownieCoinModel from './BrownieCoinModel'
@@ -22,7 +22,10 @@ class Wallet extends Component {
       publicKey: prKey ? keythereum.privateKeyToAddress(Buffer.from(prKey.privateKey.data)) : "",
       privateKey: prKey,
       balance: new BigNumber(0),
-      symbol: ""
+      symbol: "",
+      showQRCode: false,
+      showTransfer: false,
+      showScan: false
     };
 
     this.generate = this.generate.bind(this);
@@ -73,6 +76,9 @@ class Wallet extends Component {
       height: 340,
       width: '100%',
     }
+    let closeQRCode = () => this.setState({ showQRCode: false });
+    let closeTransfer = () => this.setState({ showTransfer: false });
+    let closeScan = () => this.setState({ showScan: false });
 
     return (
       <div>
@@ -84,42 +90,68 @@ class Wallet extends Component {
           <div>
             <h3>Your address: {this.state.publicKey}</h3>
             <h3>Your balance: {this.getFormattedBalance()} {this.state.symbol}</h3>
-            <Modal size='mini' trigger={<Button icon size='huge'><Icon name='qrcode' /></Button>} closeIcon>
-              <Modal.Header>QR code</Modal.Header>
-              <Modal.Content>
-                <Modal.Description style={{ textAlign: 'center' }}>
-                  <QRCode text={this.state.publicKey} />
-                </Modal.Description>
-              </Modal.Content>
+            <img src="./images/qr.png"
+              onClick={() => this.setState({ showQRCode: true })}
+              style={{ width: 46, cursor: "pointer", display: "inline", marginRight: 20 }}></img>
+            <Modal
+              show={this.state.showQRCode}
+              onHide={closeQRCode}
+              container={this}
+              aria-labelledby="contained-modal-title"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title">QR code: {this.state.publicKey}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <QRCode text={this.state.publicKey} />
+              </Modal.Body>
             </Modal>
-            <Modal trigger={<Button size='huge'>Transfer</Button>} closeIcon>
-              <Modal.Header>Transfer</Modal.Header>
-              <Modal.Content>
-                <Modal.Description>
-                  <Form>
-                    <Form.Group widths='equal'>
-                      <Form.Input label='To' placeholder='address' />
-                      <Form.Input label='Amount' placeholder='amount' />
-                    </Form.Group>
-                    <Form.Group>
-                      <Modal size='tiny' trigger={<Button>Scan</Button>} closeIcon>
-                        <Modal.Header>Scan</Modal.Header>
-                        <Modal.Content>
-                          <Modal.Description>
-                            <QrReader
-                              style={previewStyle}
-                              onError={this.handleError}
-                              onScan={this.handleScan}
-                            />
-                            <p>{this.state.result}</p>
-                          </Modal.Description>
-                        </Modal.Content>
-                      </Modal>
-                      <Form.Button>Transfer</Form.Button>
-                    </Form.Group>
-                  </Form>
-                </Modal.Description>
-              </Modal.Content>
+            <Button onClick={() => this.setState({ showTransfer: true })}>
+              Transfer
+            </Button>
+            <Modal
+              show={this.state.showTransfer}
+              onHide={closeTransfer}
+              container={this}
+              aria-labelledby="contained-modal-title"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title">Transfer</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form>
+                  <FormGroup widths='equal'>
+                    <ControlLabel>To</ControlLabel>
+                    <FormControl type='text' placeholder='address' />
+                    <ControlLabel>Amount</ControlLabel>
+                    <FormControl type='text' placeholder='amount' />
+                  </FormGroup>
+                  <FormGroup>
+                    <Button onClick={() => this.setState({ showScan: true })}>
+                      Scan
+                    </Button>
+                    <Modal
+                      show={this.state.showScan}
+                      onHide={closeScan}
+                      container={this}
+                      aria-labelledby="contained-modal-title"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title">Scan</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <QrReader
+                          style={previewStyle}
+                          onError={this.handleError}
+                          onScan={this.handleScan}
+                        />
+                        <p>{this.state.result}</p>
+                      </Modal.Body>
+                    </Modal>
+                    <Button>Transfer</Button>
+                  </FormGroup>
+                </Form>
+              </Modal.Body>
             </Modal>
           </div>}
       </div>
