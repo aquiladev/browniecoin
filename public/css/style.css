@@ -254,85 +254,93 @@ h1, h2, h3, h4, h5, h6, figure {
     -o-transform: scale(1.1);
     transform: scale(1.1); }
 
-#fh5co-header .display-tc,
-.fh5co-cover .display-tc {
-  display: table-cell !important;
-  vertical-align: middle; }
-  #fh5co-header .display-tc h1, #fh5co-header .display-tc h2,
-  .fh5co-cover .display-tc h1,
-  .fh5co-cover .display-tc h2 {
-    margin: 0;
-    padding: 0;
-    color: black; }
-  #fh5co-header .display-tc h1,
-  .fh5co-cover .display-tc h1 {
-    margin-bottom: 20px;
-    font-size: 54px;
-    line-height: 1.3;
-    font-weight: 300; }
-    @media screen and (max-width: 768px) {
-      #fh5co-header .display-tc h1,
-      .fh5co-cover .display-tc h1 {
-        font-size: 30px; } }
-  #fh5co-header .display-tc h2,
-  .fh5co-cover .display-tc h2 {
-    font-size: 20px;
-    line-height: 1.5;
-    margin-bottom: 30px; }
-  #fh5co-header .display-tc .btn,
-  .fh5co-cover .display-tc .btn {
-    padding: 15px 30px;
-    color: #fff;
-    border: none !important;
-    font-size: 18px; }
-    @media screen and (max-width: 768px) {
-      #fh5co-header .display-tc .btn,
-      .fh5co-cover .display-tc .btn {
-        width: 80%;
-        margin: 0 auto; } }
-    #fh5co-header .display-tc .btn.btn-learn,
-    .fh5co-cover .display-tc .btn.btn-learn {
-      background: #fee856;
-      border: none;
-      color: #000 !important; }
-      #fh5co-header .display-tc .btn.btn-learn:hover, #fh5co-header .display-tc .btn.btn-learn:focus,
-      .fh5co-cover .display-tc .btn.btn-learn:hover,
-      .fh5co-cover .display-tc .btn.btn-learn:focus {
-        background: rgba(254, 232, 86, 0.9) !important;
+#fh5co-header,
+.fh5co-cover {
+  margin-top: 110px; }
+  #fh5co-header .display-tc,
+  .fh5co-cover .display-tc {
+    display: table-cell !important;
+    vertical-align: middle; }
+    #fh5co-header .display-tc h1, #fh5co-header .display-tc h2,
+    .fh5co-cover .display-tc h1,
+    .fh5co-cover .display-tc h2 {
+      margin: 0;
+      padding: 0;
+      color: black; }
+    #fh5co-header .display-tc h1,
+    .fh5co-cover .display-tc h1 {
+      margin-bottom: 20px;
+      font-size: 54px;
+      line-height: 1.3;
+      font-weight: 300; }
+      @media screen and (max-width: 768px) {
+        #fh5co-header .display-tc h1,
+        .fh5co-cover .display-tc h1 {
+          font-size: 30px; } }
+    #fh5co-header .display-tc h2,
+    .fh5co-cover .display-tc h2 {
+      font-size: 20px;
+      line-height: 1.5;
+      margin-bottom: 30px; }
+    #fh5co-header .display-tc .btn,
+    .fh5co-cover .display-tc .btn {
+      padding: 15px 30px;
+      color: #fff;
+      border: none !important;
+      font-size: 18px; }
+      @media screen and (max-width: 768px) {
+        #fh5co-header .display-tc .btn,
+        .fh5co-cover .display-tc .btn {
+          width: 80%;
+          margin: 0 auto; } }
+      #fh5co-header .display-tc .btn.btn-learn,
+      .fh5co-cover .display-tc .btn.btn-learn {
+        background: #fee856;
+        border: none;
         color: #000 !important; }
-    #fh5co-header .display-tc .btn:hover, #fh5co-header .display-tc .btn:focus,
-    .fh5co-cover .display-tc .btn:hover,
-    .fh5co-cover .display-tc .btn:focus {
-      color: #fff !important; }
-    #fh5co-header .display-tc .btn.btn-demo,
-    .fh5co-cover .display-tc .btn.btn-demo {
-      background: #dd356e;
-      border: none; }
-      #fh5co-header .display-tc .btn.btn-demo:hover, #fh5co-header .display-tc .btn.btn-demo:focus,
-      .fh5co-cover .display-tc .btn.btn-demo:hover,
-      .fh5co-cover .display-tc .btn.btn-demo:focus {
-        background: rgba(221, 53, 110, 0.9) !important;
+        #fh5co-header .display-tc .btn.btn-learn:hover, #fh5co-header .display-tc .btn.btn-learn:focus,
+        .fh5co-cover .display-tc .btn.btn-learn:hover,
+        .fh5co-cover .display-tc .btn.btn-learn:focus {
+          background: rgba(254, 232, 86, 0.9) !important;
+          color: #000 !important; }
+      #fh5co-header .display-tc .btn:hover, #fh5co-header .display-tc .btn:focus,
+      .fh5co-cover .display-tc .btn:hover,
+      .fh5co-cover .display-tc .btn:focus {
         color: #fff !important; }
-    #fh5co-header .display-tc .btn:hover,
-    .fh5co-cover .display-tc .btn:hover {
-      background: #DD356E !important;
-      -webkit-box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75) !important;
-      -moz-box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75) !important;
-      box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75) !important; }
-  #fh5co-header .display-tc .form-inline .form-group,
-  .fh5co-cover .display-tc .form-inline .form-group {
-    width: 100% !important;
-    margin-bottom: 10px; }
-    #fh5co-header .display-tc .form-inline .form-group .form-control,
-    .fh5co-cover .display-tc .form-inline .form-group .form-control {
-      width: 100%;
-      background: #fff;
-      border: none; }
+      #fh5co-header .display-tc .btn.btn-demo,
+      .fh5co-cover .display-tc .btn.btn-demo {
+        background: #dd356e;
+        border: none; }
+        #fh5co-header .display-tc .btn.btn-demo:hover, #fh5co-header .display-tc .btn.btn-demo:focus,
+        .fh5co-cover .display-tc .btn.btn-demo:hover,
+        .fh5co-cover .display-tc .btn.btn-demo:focus {
+          background: rgba(221, 53, 110, 0.9) !important;
+          color: #fff !important; }
+      #fh5co-header .display-tc .btn:hover,
+      .fh5co-cover .display-tc .btn:hover {
+        background: #DD356E !important;
+        -webkit-box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75) !important;
+        -moz-box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75) !important;
+        box-shadow: 0px 14px 30px -15px rgba(0, 0, 0, 0.75) !important; }
+    #fh5co-header .display-tc .form-inline .form-group,
+    .fh5co-cover .display-tc .form-inline .form-group {
+      width: 100% !important;
+      margin-bottom: 10px; }
+      #fh5co-header .display-tc .form-inline .form-group .form-control,
+      .fh5co-cover .display-tc .form-inline .form-group .form-control {
+        width: 100%;
+        background: #fff;
+        border: none; }
+    #fh5co-header .display-tc img,
+    .fh5co-cover .display-tc img {
+      margin-bottom: 90px; }
 
 #fh5co-features {
   background: #FEE856; }
   #fh5co-features .services-padding {
     padding: 7em 0; }
+    #fh5co-features .services-padding .fh5co-heading p {
+      color: rgba(0, 0, 0, 0.8); }
   #fh5co-features .feature-left {
     margin-bottom: 40px;
     float: left; }
@@ -397,7 +405,6 @@ h1, h2, h3, h4, h5, h6, figure {
     font-weight: bold; }
 
 .user-frame {
-  width: 90%;
   padding: 3em;
   -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.13);
   -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.13);
@@ -584,21 +591,17 @@ h1, h2, h3, h4, h5, h6, figure {
     background: #dd356e; }
   #fh5co-started .fh5co-heading {
     margin-bottom: 0; }
-    #fh5co-started .fh5co-heading h2 {
+    #fh5co-started .fh5co-heading h2,
+    #fh5co-started .fh5co-heading h3 {
       color: #fff;
       margin-bottom: 20px !important; }
     #fh5co-started .fh5co-heading p {
       color: rgba(255, 255, 255, 0.8); }
-  #fh5co-started .btn {
-    height: 54px;
-    border: none !important;
-    background: #fff;
-    color: #DD356E;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: 400;
-    padding-left: 50px;
-    padding-right: 50px; }
+      #fh5co-started .fh5co-heading p b {
+        padding: 4px 8px;
+        background: #FEE856;
+        color: #000;
+        border-radius: 4px; }
 
 .member {
   width: 100%;
@@ -678,10 +681,12 @@ h1, h2, h3, h4, h5, h6, figure {
           padding-right: 5px; }
     .fh5co-blog .blog-text h3 {
       font-size: 24px;
-      margin-bottom: 20px;
+      margin-bottom: 0;
       line-height: 1.5; }
       .fh5co-blog .blog-text h3 a {
         color: black; }
+    .fh5co-blog .blog-text p {
+      font-size: 14px; }
 
 .fh5co-portfolio {
   width: 100%;
@@ -1050,7 +1055,7 @@ input[type="text"] {
   border-bottom: none !important; }
   @media screen and (max-width: 768px) {
     .fh5co-nav-toggle {
-      display: block; } }
+      display: none; } }
 
 .btn {
   margin-right: 4px;
@@ -1215,3 +1220,11 @@ input[type="text"] {
 
 .js .animate-box {
   opacity: 0; }
+
+.modal-dialog {
+  top: 20%; }
+  .modal-dialog .modal-content .modal-body {
+    padding: 0; }
+    .modal-dialog .modal-content .modal-body iframe {
+      margin: 0 auto;
+      display: block; }
