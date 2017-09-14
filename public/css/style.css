@@ -591,7 +591,8 @@ h1, h2, h3, h4, h5, h6, figure {
     background: #dd356e; }
   #fh5co-started .fh5co-heading {
     margin-bottom: 0; }
-    #fh5co-started .fh5co-heading h2 {
+    #fh5co-started .fh5co-heading h2,
+    #fh5co-started .fh5co-heading h3 {
       color: #fff;
       margin-bottom: 20px !important; }
     #fh5co-started .fh5co-heading p {
