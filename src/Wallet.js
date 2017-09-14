@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import keythereum from 'keythereum';
 import QRCode from 'react-qr';
 import QrReader from 'react-qr-reader';
-import { Button, Modal, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Button, Modal, Form, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap';
 import BigNumber from 'bignumber.js'
 
+import { web3Provided } from './Contracts'
 import BrownieCoinModel from './BrownieCoinModel'
 
 class Wallet extends Component {
@@ -16,19 +17,25 @@ class Wallet extends Component {
     var value = window.localStorage.getItem('erc20set2w_keyvault');
     var prKey = value ? JSON.parse(value) : undefined;
 
-    console.log(prKey)
+    // var key = Buffer.from(prKey.privateKey.data).toString("hex");
+    // BrownieCoinModel.addAccount(key);
+
     this.state = {
       loading: false,
       publicKey: prKey ? keythereum.privateKeyToAddress(Buffer.from(prKey.privateKey.data)) : "",
       privateKey: prKey,
       balance: new BigNumber(0),
       symbol: "",
+      transferTo: "0xbf35c1709efa89c4c694139d6c6de912b0ca30c2",
+      transferAmount: 1,
+      transferError: "",
       showQRCode: false,
       showTransfer: false,
       showScan: false
     };
 
     this.generate = this.generate.bind(this);
+    this.transfer = this.transfer.bind(this);
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
   }
@@ -57,10 +64,41 @@ class Wallet extends Component {
     return pubKey;
   }
 
+  transfer() {
+    if (!this.state.transferTo ||
+      this.state.transferAmount === 0) {
+      this.setState({
+        transferError: "Recipient address or amount is not provided"
+      });
+      return;
+    }
+
+    BrownieCoinModel
+      .transfer(this.state.transferTo, 1, { from: "0x1a31786A953BD0663aABF41383D8270f2A7Ab587" })
+      .then(x => console.log(x));
+    console.log(this.state);
+  }
+
   handleScan(data) {
+    if (!data) {
+      return
+    }
+
+    var transferTo = "";
+    var transferAmount = 0;
+    try {
+      var model = JSON.parse(data);
+      transferTo = model.to;
+      transferAmount = model.amount;
+    } catch (err) {
+      transferTo = data;
+    }
+
     this.setState({
-      result: data,
-    })
+      transferTo: transferTo,
+      transferAmount: transferAmount,
+      showScan: !data
+    });
   }
 
   handleError(err) {
@@ -82,7 +120,6 @@ class Wallet extends Component {
 
     return (
       <div>
-        <p>{this.state.fingerprint}</p>
         {!this.state.publicKey ?
           <div>
             <Button onClick={this.generate}>Generate Address</Button>
@@ -119,12 +156,19 @@ class Wallet extends Component {
                 <Modal.Title id="contained-modal-title">Transfer</Modal.Title>
               </Modal.Header>
               <Modal.Body>
+                {this.state.transferError ? <Alert bsStyle="danger"><h4>{this.state.transferError}</h4></Alert> : null}
                 <Form>
                   <FormGroup widths='equal'>
                     <ControlLabel>To</ControlLabel>
-                    <FormControl type='text' placeholder='address' />
+                    <FormControl type='text'
+                      placeholder='Recipient address'
+                      value={this.state.transferTo}
+                      onChange={(e) => this.setState({ transferTo: e.target.value })} />
                     <ControlLabel>Amount</ControlLabel>
-                    <FormControl type='text' placeholder='amount' />
+                    <FormControl type='text'
+                      placeholder='Amount'
+                      value={this.state.transferAmount}
+                      onChange={(e) => this.setState({ transferAmount: e.target.value })} />
                   </FormGroup>
                   <FormGroup>
                     <Button onClick={() => this.setState({ showScan: true })}>
@@ -141,6 +185,7 @@ class Wallet extends Component {
                       </Modal.Header>
                       <Modal.Body>
                         <QrReader
+                          delay={100}
                           style={previewStyle}
                           onError={this.handleError}
                           onScan={this.handleScan}
@@ -148,7 +193,7 @@ class Wallet extends Component {
                         <p>{this.state.result}</p>
                       </Modal.Body>
                     </Modal>
-                    <Button>Transfer</Button>
+                    <Button onClick={this.transfer}>Transfer</Button>
                   </FormGroup>
                 </Form>
               </Modal.Body>
