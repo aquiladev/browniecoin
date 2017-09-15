@@ -125,6 +125,7 @@ class Wallet extends Component {
   }
 
   render() {
+    const applePlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'iPhone', 'iPad', 'iPod'];
     const previewStyle = {
       height: 340,
       width: '100%',
@@ -204,6 +205,7 @@ class Wallet extends Component {
                           style={previewStyle}
                           onError={this.handleError}
                           onScan={this.handleScan}
+                          legacyMode={applePlatforms.indexOf(window.navigator.platform) !== -1}
                         />
                         <p>{this.state.result}</p>
                       </Modal.Body>
