@@ -467,7 +467,8 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 
-#fh5co-features {
+#fh5co-features,
+#fh5co-features2 {
 	// padding: 7em 0;
 	background: $brand-secondary;
 	.services-padding{
@@ -544,6 +545,15 @@ h1, h2, h3, h4, h5, h6, figure {
 			display: none;
 		}
 	}
+}
+
+#fh5co-features2 {
+	background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    float: left;
+    width: 100%;
 }
 
 #fh5co-wireframe{
