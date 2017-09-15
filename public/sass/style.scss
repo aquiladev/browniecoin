@@ -114,6 +114,7 @@ body {
 	line-height: 1.7;
 	color: darken($brand-white,80%);
 	background: #fff;
+	padding-top: 74px !important;
 }
 #page {
 	position: relative;
@@ -174,7 +175,7 @@ h1, h2, h3, h4, h5, h6, figure {
 .fh5co-nav {
 	background: $brand-white;
 	.top-menu{
-		padding: 28px 0;
+		padding: 10px 0;
 	}
 
 	#fh5co-logo {
@@ -463,7 +464,6 @@ h1, h2, h3, h4, h5, h6, figure {
 			margin-bottom: 90px;
 		}
 	}
-	margin-top: 110px;
 }
 
 
