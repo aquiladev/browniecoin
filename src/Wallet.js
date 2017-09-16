@@ -5,7 +5,6 @@ import QrReader from 'react-qr-reader';
 import { Button, Modal, Form, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap';
 import BigNumber from 'bignumber.js'
 
-import { web3Provided } from './Contracts'
 import BrownieCoinModel from './BrownieCoinModel'
 
 class Wallet extends Component {
@@ -18,24 +17,26 @@ class Wallet extends Component {
     var prKey = value ? JSON.parse(value) : undefined;
 
     this.state = {
-      loading: false,
-      publicKey: prKey ? keythereum.privateKeyToAddress(Buffer.from(prKey.privateKey.data)) : "",
+      publicKey: prKey ? keythereum.privateKeyToAddress(Buffer.from(prKey.privateKey.data)) : '',
       privateKey: prKey,
       balance: new BigNumber(0),
-      symbol: "",
-      isTransfering: false,
-      transferTo: "",
+      symbol: '',
+      isTransferring: false,
+      transferTo: '',
       transferAmount: 0,
-      transferError: "",
+      transferError: '',
       showQRCode: false,
       showTransfer: false,
-      showScan: false
+      showScan: false,
+      scanLoading: true,
+      legacyMode: false
     };
 
     this.generate = this.generate.bind(this);
     this.transfer = this.transfer.bind(this);
     this.handleScan = this.handleScan.bind(this);
     this.handleError = this.handleError.bind(this);
+    this.openImageDialog = this.openImageDialog.bind(this);
   }
 
   componentDidMount() {
@@ -64,33 +65,46 @@ class Wallet extends Component {
 
   transfer() {
     if (!this.state.transferTo ||
-      this.state.transferAmount === 0) {
+      this.state.transferAmount <= 0) {
       this.setState({
-        transferError: "Recipient address or amount is not provided"
+        transferError: 'Recipient address or amount is not provided'
+      });
+      return;
+    }
+
+    const amount = this.state.transferAmount * 100;
+
+    if (this.state.balance.lt(new BigNumber(amount))) {
+      this.setState({
+        transferError: 'Not enough balance'
       });
       return;
     }
 
     this.setState({
-      transferError: "",
-      isTransfering: true
+      transferError: '',
+      isTransferring: true
     })
 
+    const privateKey = Buffer.from(this.state.privateKey.privateKey.data).toString('hex');
     BrownieCoinModel
-      .transfer(this.state.transferTo, this.state.transferAmount * 100,
-      Buffer.from(this.state.privateKey.privateKey.data).toString("hex"),
+      .transfer(this.state.transferTo, amount, privateKey,
       {
         from: this.state.publicKey,
         gas: 60000,
         gasPrice: 50000000000
       })
       .then(x => this.setState({
+        balance: this.state.balance.sub(amount),
         showTransfer: false,
-        isTransfering: false
+        isTransferring: false,
+        transferAmount: 0,
+        transferTo: '',
+        transferError: ''
       }))
       .catch(x => this.setState({
         transferError: x.toString(),
-        isTransfering: false
+        isTransferring: false
       }));
   }
 
@@ -99,7 +113,7 @@ class Wallet extends Component {
       return
     }
 
-    var transferTo = "";
+    var transferTo = '';
     var transferAmount = 0;
     try {
       var model = JSON.parse(data);
@@ -117,7 +131,13 @@ class Wallet extends Component {
   }
 
   handleError(err) {
-    console.error(err)
+    this.setState({
+      legacyMode: true
+    })
+  }
+
+  openImageDialog() {
+    this.refs.reader.openImageDialog()
   }
 
   getFormattedBalance() {
@@ -125,13 +145,17 @@ class Wallet extends Component {
   }
 
   render() {
-    const applePlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'iPhone', 'iPad', 'iPod'];
     const previewStyle = {
       height: 340,
       width: '100%',
     }
     let closeQRCode = () => this.setState({ showQRCode: false });
-    let closeTransfer = () => this.setState({ showTransfer: false });
+    let closeTransfer = () => this.setState({
+      showTransfer: false,
+      transferAmount: 0,
+      transferTo: '',
+      transferError: ''
+    });
     let closeScan = () => this.setState({ showScan: false });
 
     return (
@@ -141,19 +165,22 @@ class Wallet extends Component {
             <Button onClick={this.generate}>Generate Address</Button>
           </div> :
           <div>
-            <h3>Your address: {this.state.publicKey}</h3>
-            <h3>Your balance: {this.getFormattedBalance()} {this.state.symbol}</h3>
-            <img src="./images/qr.png"
+            <h3>Your address: {this.state.publicKey} <img
+              src='./images/qr.png'
               onClick={() => this.setState({ showQRCode: true })}
-              style={{ width: 46, cursor: "pointer", display: "inline", marginRight: 20 }}></img>
+              alt='QR code'
+              style={{ width: 24, cursor: 'pointer', display: 'inline', marginRight: 20 }}></img>
+            </h3>
+            <h3>Your balance: {this.getFormattedBalance()} {this.state.symbol}</h3>
             <Modal
               show={this.state.showQRCode}
               onHide={closeQRCode}
               container={this}
-              aria-labelledby="contained-modal-title"
+              bsSize='sm'
+              aria-labelledby='contained-modal-title'
             >
               <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title">QR code: {this.state.publicKey}</Modal.Title>
+                <Modal.Title id='contained-modal-title'>QR code</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <QRCode text={this.state.publicKey} />
@@ -166,54 +193,56 @@ class Wallet extends Component {
               show={this.state.showTransfer}
               onHide={closeTransfer}
               container={this}
-              aria-labelledby="contained-modal-title"
+              aria-labelledby='contained-modal-title'
             >
               <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title">Transfer</Modal.Title>
+                <Modal.Title id='contained-modal-title'>Transfer</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {this.state.transferError ? <Alert bsStyle="danger"><h4>{this.state.transferError}</h4></Alert> : null}
+                {this.state.transferError ? <Alert bsStyle='danger'>{this.state.transferError}</Alert> : null}
                 <Form>
                   <FormGroup widths='equal'>
-                    <ControlLabel>To</ControlLabel>
+                    <ControlLabel style={{ color: '#333' }}>To</ControlLabel>
                     <FormControl type='text'
                       placeholder='Recipient address'
                       value={this.state.transferTo}
                       onChange={(e) => this.setState({ transferTo: e.target.value })} />
-                    <ControlLabel>Amount</ControlLabel>
+                    <ControlLabel style={{ color: '#333' }}>Amount</ControlLabel>
                     <FormControl type='text'
                       placeholder='Amount'
                       value={this.state.transferAmount}
                       onChange={(e) => this.setState({ transferAmount: e.target.value })} />
                   </FormGroup>
                   <FormGroup>
-                    <img src="./images/scan-qr.png"
+                    <img
+                      src='./images/scan-qr.png'
                       onClick={() => this.setState({ showScan: true })}
-                      style={{ width: 46, cursor: "pointer", display: "inline", marginRight: 20 }}></img>
+                      alt='Scan QR code'
+                      style={{ width: 46, cursor: 'pointer', display: 'inline', marginRight: 20 }}></img>
                     <Modal
                       show={this.state.showScan}
                       onHide={closeScan}
                       container={this}
-                      aria-labelledby="contained-modal-title"
+                      aria-labelledby='contained-modal-title'
                     >
                       <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title">Scan</Modal.Title>
+                        <Modal.Title id='contained-modal-title'>Scan</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
+                        {this.state.legacyMode ? <Button onClick={this.openImageDialog}>Submit QR Code</Button> : null}
                         <QrReader
-                          delay={100}
+                          ref='reader'
                           style={previewStyle}
                           onError={this.handleError}
                           onScan={this.handleScan}
-                          legacyMode={applePlatforms.indexOf(window.navigator.platform) !== -1}
+                          legacyMode={this.state.legacyMode}
                         />
-                        <p>{this.state.result}</p>
                       </Modal.Body>
                     </Modal>
                     <Button
-                      disabled={this.state.isTransfering}
-                      onClick={!this.state.isTransfering ? this.transfer : null}>
-                      {this.state.isTransfering ? 'Transfering...' : 'Transfer'}
+                      disabled={this.state.isTransferring}
+                      onClick={!this.state.isTransferring ? this.transfer : null}>
+                      {this.state.isTransferring ? 'Transferring...' : 'Transfer'}
                     </Button>
                   </FormGroup>
                 </Form>

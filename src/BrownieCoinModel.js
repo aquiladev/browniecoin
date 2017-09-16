@@ -2,7 +2,7 @@ import Web3 from 'web3'
 import SignerProvider from 'ethjs-provider-signer'
 import { sign } from 'ethjs-signer';
 
-import { BrownieCoin, web3Provided } from './Contracts'
+import { BrownieCoin } from './Contracts'
 
 class BrownieCoinModel {
   static contractAddress = '0xab905cb5ee18fa0d704ae734c50371ebe6d60b71';
