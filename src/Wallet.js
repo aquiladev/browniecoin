@@ -165,12 +165,20 @@ class Wallet extends Component {
             <Button onClick={this.generate}>Generate Address</Button>
           </div> :
           <div>
-            <h3>Your address: {this.state.publicKey} <img
-              src='./images/qr.png'
-              onClick={() => this.setState({ showQRCode: true })}
-              alt='QR code'
-              style={{ width: 24, cursor: 'pointer', display: 'inline', marginRight: 20 }}></img>
-            </h3>
+            <div style={{ marginBottom: 10 }}>
+              <h3 style={{ display: 'inline' }}>Your address: {this.state.publicKey}</h3>
+              <div
+                onClick={() => this.setState({ showQRCode: true })}
+                style={{
+                  width: 26,
+                  height: 26,
+                  cursor: 'pointer',
+                  float: 'right',
+                  marginLeft: 12,
+                  backgroundImage: 'url(./images/qr.svg)',
+                  backgroundSize: '26px 26px'
+                }}></div>
+            </div>
             <h3>Your balance: {this.getFormattedBalance()} {this.state.symbol}</h3>
             <Modal
               show={this.state.showQRCode}
@@ -214,11 +222,22 @@ class Wallet extends Component {
                       onChange={(e) => this.setState({ transferAmount: e.target.value })} />
                   </FormGroup>
                   <FormGroup>
-                    <img
-                      src='./images/scan-qr.png'
+                    <div
                       onClick={() => this.setState({ showScan: true })}
-                      alt='Scan QR code'
-                      style={{ width: 46, cursor: 'pointer', display: 'inline', marginRight: 20 }}></img>
+                      style={{
+                        width: 50,
+                        height: 50,
+                        cursor: 'pointer',
+                        float: 'left',
+                        marginRight: 18,
+                        backgroundImage: 'url(./images/scan-qr.svg)',
+                        backgroundSize: '50px 50px'
+                      }}></div>
+                    <Button
+                      disabled={this.state.isTransferring}
+                      onClick={!this.state.isTransferring ? this.transfer : null}>
+                      {this.state.isTransferring ? 'Transferring...' : 'Transfer'}
+                    </Button>
                     <Modal
                       show={this.state.showScan}
                       onHide={closeScan}
@@ -239,11 +258,6 @@ class Wallet extends Component {
                         />
                       </Modal.Body>
                     </Modal>
-                    <Button
-                      disabled={this.state.isTransferring}
-                      onClick={!this.state.isTransferring ? this.transfer : null}>
-                      {this.state.isTransferring ? 'Transferring...' : 'Transfer'}
-                    </Button>
                   </FormGroup>
                 </Form>
               </Modal.Body>
