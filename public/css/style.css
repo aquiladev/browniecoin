@@ -761,6 +761,8 @@ h1, h2, h3, h4, h5, h6, figure {
         .fh5co-portfolio .portfolio-text .stuff li i {
           font-size: 14px;
           padding-right: 5px; }
+  #fh5co-portfolio .fh5co-heading {
+    margin-bottom: 0; }
 
 .fh5co-team {
   position: relative;
