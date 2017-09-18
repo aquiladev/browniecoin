@@ -616,19 +616,17 @@ h1, h2, h3, h4, h5, h6, figure {
     left: 0;
     right: 0;
     background: #dd356e; }
-  #fh5co-started .fh5co-heading {
-    margin-bottom: 0; }
-    #fh5co-started .fh5co-heading h2,
-    #fh5co-started .fh5co-heading h3 {
-      color: #fff;
-      margin-bottom: 20px !important; }
-    #fh5co-started .fh5co-heading p {
-      color: rgba(255, 255, 255, 0.8); }
-      #fh5co-started .fh5co-heading p b {
-        padding: 4px 8px;
-        background: #FEE856;
-        color: #000;
-        border-radius: 4px; }
+  #fh5co-started .fh5co-heading h2,
+  #fh5co-started .fh5co-heading h3 {
+    color: #fff;
+    margin-bottom: 20px !important; }
+  #fh5co-started .fh5co-heading p {
+    color: rgba(255, 255, 255, 0.8); }
+    #fh5co-started .fh5co-heading p b {
+      padding: 4px 8px;
+      background: #FEE856;
+      color: #000;
+      border-radius: 4px; }
 
 .member {
   width: 100%;
@@ -761,8 +759,12 @@ h1, h2, h3, h4, h5, h6, figure {
         .fh5co-portfolio .portfolio-text .stuff li i {
           font-size: 14px;
           padding-right: 5px; }
-  #fh5co-portfolio .fh5co-heading {
-    margin-bottom: 0; }
+
+#fh5co-portfolio .fh5co-heading p b {
+  padding: 4px 8px;
+  background: #FEE856;
+  color: #000;
+  border-radius: 4px; }
 
 .fh5co-team {
   position: relative;
@@ -1251,10 +1253,7 @@ input[type="text"] {
   opacity: 0; }
 
 .modal-dialog {
-  margin: 120px auto;
-}
-
+  top: 20%; }
   .modal-dialog .modal-content .modal-body iframe {
     margin: 0 auto;
-    display: block; 
-  }
+    display: block; }

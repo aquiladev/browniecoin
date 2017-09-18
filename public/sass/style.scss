@@ -740,7 +740,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 
-.fh5co-heading {
+.fh5co-heading{
 	margin-bottom: 5em;
 	&.fh5co-heading-sm {
 		margin-bottom: 2em;
@@ -784,7 +784,6 @@ h1, h2, h3, h4, h5, h6, figure {
 	}
 	
 	.fh5co-heading {
-		margin-bottom: 0;
 		h2,
 		h3 {
 			color: $brand-white;
@@ -914,6 +913,7 @@ h1, h2, h3, h4, h5, h6, figure {
 	width: 100%;
 	float: left;
 	margin-bottom: 40px;
+
 	>a{
 		width: 100%;
 		float: left;
@@ -963,6 +963,17 @@ box-shadow: 0px 8px 16px -4px rgba(0,0,0,0.13);
 					padding-right: 5px;
 				}
 			}
+		}
+	}
+}
+
+#fh5co-portfolio {
+	.fh5co-heading {
+		p b {
+			padding: 4px 8px;
+			background: $brand-secondary;
+			color: $brand-black;
+			border-radius: $border-radius-base;
 		}
 	}
 }
