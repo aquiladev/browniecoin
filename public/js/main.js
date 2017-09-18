@@ -257,6 +257,18 @@ function scrollNav() {
 		}, 200);
 		return false;
 	});
+	$('#fh5co-portfolio a').click(function(){
+		//Toggle Class
+		$(".active").removeClass("active");
+		$(this).closest('li').addClass("active");
+		var theClass = $(this).attr("class");
+		$('.'+theClass).parent('li').addClass('active');
+		//Animate
+		$('html, body').stop().animate({
+			scrollTop: $( $(this).attr('href') ).offset().top - 100
+		}, 200);
+		return false;
+	});
 	$('.scrollTop a').scrollTop();
 }
 scrollNav();
