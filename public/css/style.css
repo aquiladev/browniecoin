@@ -760,6 +760,10 @@ h1, h2, h3, h4, h5, h6, figure {
           font-size: 14px;
           padding-right: 5px; }
 
+#fh5co-portfolio .fh5co-heading {
+  margin-bottom: 0;
+}
+
 #fh5co-portfolio .fh5co-heading p b {
   padding: 4px 8px;
   background: #FEE856;
@@ -1253,7 +1257,7 @@ input[type="text"] {
   opacity: 0; }
 
 .modal-dialog {
-  top: 20%; }
+  margin: 120px auto; }
   .modal-dialog .modal-content .modal-body iframe {
     margin: 0 auto;
     display: block; }

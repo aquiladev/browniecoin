@@ -210,7 +210,7 @@ class Wallet extends Component {
                 {this.state.transferError ? <Alert bsStyle='danger'>{this.state.transferError}</Alert> : null}
                 <Form>
                   <FormGroup widths='equal'>
-                    <ControlLabel style={{ color: '#333' }}>To</ControlLabel>
+                    <ControlLabel style={{ color: '#333' }}>To (0xac60E10c4f29c4B8D7Ce5D3F01Ee4Cd631447CD0)</ControlLabel>
                     <FormControl type='text'
                       placeholder='Recipient address'
                       value={this.state.transferTo}
